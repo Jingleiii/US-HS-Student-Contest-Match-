@@ -1,0 +1,9 @@
+{
+  "grade": 10,
+  "academic_strength": 4,
+  "interests": ["STEM", "CS"],
+  "weekly_hours": 5,
+  "target_tier": "top",
+  "prefer_online": true,
+  "prefer_team": false
+}

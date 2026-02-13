@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>推荐结果</title>
+  <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <a href="/">← 返回重新填写</a>
+    </div>
+
+    <h1>推荐结果</h1>
+    <p class="sub">
+      grade={{ profile.grade }},
+      strength={{ profile.academic_strength }}/5,
+      tier={{ profile.target_tier }},
+      weekly_hours={{ profile.weekly_hours }}h,
+      interests={{ profile.interests }}
+    </p>
+
+    {% if recs|length == 0 %}
+      <div class="card">
+        没有匹配结果（可能年级范围不符合，或数据太少）。你可以返回调整条件试试。
+      </div>
+    {% endif %}
+
+    {% for r in recs %}
+      <div class="card">
+        <h2>{{ loop.index }}. {{ r.competition.name }}
+          <span class="score">score {{ "%.1f"|format(r.score) }}</span>
+        </h2>
+
+        <p class="meta">
+          subject={{ r.competition.subject }} |
+          diff={{ r.competition.difficulty }}/5 |
+          roi={{ r.competition.roi }}/5 |
+          prestige={{ r.competition.prestige }}/5 |
+          format={{ r.competition.format }} |
+          season={{ r.competition.season }}
+        </p>
+
+        <h3>Why</h3>
+        <ul>
+          {% for reason in r.reasons %}
+            <li>{{ reason }}</li>
+          {% endfor %}
+        </ul>
+
+        {% if r.warnings %}
+          <div class="warn">
+            ⚠️ {{ r.warnings | join("；") }}
+          </div>
+        {% endif %}
+
+        {% if r.competition.link %}
+          <p><a href="{{ r.competition.link }}" target="_blank">官网链接</a></p>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</body>
+</html>

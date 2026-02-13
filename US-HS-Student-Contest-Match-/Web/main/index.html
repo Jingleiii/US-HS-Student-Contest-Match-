@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contest Match</title>
+  <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>US HS Student Contest Match</h1>
+    <p class="sub">输入你的信息，我们给你匹配最适合的竞赛 + 解释 + 建议。</p>
+
+    <form method="post" action="/recommend" class="card">
+      <div class="row">
+        <label>年级 (grade)</label>
+        <input name="grade" type="number" min="1" max="12" value="10" required />
+      </div>
+
+      <div class="row">
+        <label>学术强度 (1-5)</label>
+        <select name="academic_strength">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3" selected>3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <label>每周可投入时间 (hours/week)</label>
+        <input name="weekly_hours" type="number" step="0.5" min="0" value="5" />
+      </div>
+
+      <div class="row">
+        <label>目标学校档次</label>
+        <select name="target_tier">
+          <option value="any" selected>不限</option>
+          <option value="mid">中等偏上</option>
+          <option value="top">Top</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <label>兴趣方向（逗号分隔）</label>
+        <input name="interests" type="text" placeholder="CS, Math, STEM" value="CS, STEM" />
+      </div>
+
+      <div class="row">
+        <label>偏好线上/线下</label>
+        <select name="prefer_online">
+          <option value="any" selected>都可以</option>
+          <option value="online">更偏线上</option>
+          <option value="offline">更偏线下</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <label>偏好团队/个人</label>
+        <select name="prefer_team">
+          <option value="any" selected>都可以</option>
+          <option value="team">更偏团队</option>
+          <option value="individual">更偏个人</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <label>输出数量 TopK</label>
+        <input name="topk" type="number" min="1" max="30" value="8" />
+      </div>
+
+      <button type="submit">生成推荐</button>
+    </form>
+  </div>
+</body>
+</html>
